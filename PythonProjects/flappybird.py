@@ -24,8 +24,15 @@ bird_x = width // 4
 bird_y = height // 2
 bird_velocity = 0
 
+# Punktestand
+score = 0
+font = pygame.font.Font(None, 36)
+
 # Schwerkraft
 gravity = 1
+
+# Highscore
+highscore = 0
 
 # Sprungkraft
 jump_strength = 15
@@ -44,6 +51,14 @@ def draw_bird(x, y):
 def draw_obstacle(x, height):
     pygame.draw.rect(screen, green, (x, 0, obstacle_width, height))
     pygame.draw.rect(screen, green, (x, height + obstacle_gap, obstacle_width, height + obstacle_gap + 600))
+
+def draw_score(score):
+    text = font.render("Punkte: {}".format(score), True, blue)
+    screen.blit(text, (10, 10))
+
+def update_highscore(score):
+    if score < highscore:
+        highscore = score
 
 while True:
     for event in pygame.event.get():
@@ -67,17 +82,23 @@ while True:
     # Kollision mit Hindernissen überprüfen
     if bird_x < obstacle_x + obstacle_width < bird_x + bird_width and \
        not (bird_y > obstacle_height and bird_y + bird_height < obstacle_height + obstacle_gap):
-        print("Kollision! Spiel vorbei.")
+        print("Kollision! Game over.")
+        update_highscore(score)
+        #Fenster mit erzielten Punkten und Highscore
         time.sleep(3)
         pygame.quit()
         sys.exit()
 
+    # Überprüfen, ob der Vogel das Hindernis passiert hat
+    if obstacle_x + obstacle_width == bird_x:
+        score += 1
+        print("Punkte:", score)
+    
     # Zeichnen
     screen.fill(white)
-
     draw_obstacle(obstacle_x, obstacle_height)
     draw_bird(bird_x, bird_y)
-
+    draw_score(score)
     pygame.display.flip()
 
     # Begrenzung der Bildwiederholungsrate
