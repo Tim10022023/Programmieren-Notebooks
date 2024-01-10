@@ -56,10 +56,6 @@ def draw_score(score):
     text = font.render("Punkte: {}".format(score), True, blue)
     screen.blit(text, (10, 10))
 
-def update_highscore(score):
-    if score < highscore:
-        highscore = score
-
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -83,7 +79,6 @@ while True:
     if bird_x < obstacle_x + obstacle_width < bird_x + bird_width and \
        not (bird_y > obstacle_height and bird_y + bird_height < obstacle_height + obstacle_gap):
         print("Kollision! Game over.")
-        update_highscore(score)
         #Fenster mit erzielten Punkten und Highscore
         time.sleep(3)
         pygame.quit()
