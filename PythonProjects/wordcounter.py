@@ -13,6 +13,12 @@ def vowel_count():
     vowel_count = sum(1 for char in word if char.lower() in "aeiou")
     print("Anzahl Vokale:", vowel_count)
 
+def char_frequency():
+    text = input("Gib einen Text ein: ")
+    char_frequency = {char: text.count(char) for char in set(text)}
+    print("Zeichenfrequenzen:", char_frequency)
+
 word_counter()
 word_reverse()
 vowel_count()
+char_frequency()
