@@ -16,6 +16,3 @@ def test_fibonacci_of_three():
 
 def test_fibonacci_of_ten():
     assert fibonacci_of(10) == 55
-
-# Wenn Ihre Funktion eine ungültige Eingabe überprüft, können Sie auch einen Test dafür schreiben
-
